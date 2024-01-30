@@ -36,7 +36,7 @@ export class MainHeaderComponent implements OnInit {
       },
       {
         name: 'Vehiculos',
-        router: ['/home/vehicles']
+        router: ['/home/vehicle/main']
       },
       {
         name: 'Lugares',
