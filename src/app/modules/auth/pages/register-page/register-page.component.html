@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <div class="row align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="col-lg-7">
+      <img src="assets/images/vehigo-high-resolution-logo-transparent.png" alt="Logo de VehiGO" class="img-fluid">
+    </div>
+    <div class="col-lg-5">
+      <form (ngSubmit)="sendRegister()" [formGroup]="formRegister" class="p-4 rounded shadow bg-light">
+        <h1 class="mb-4 text-center">{{ mainMenu.titleButton[0]?.name }}</h1>
+        <div *ngFor="let item of mainMenu.defaultOptions" class="mb-3">
+          <label [for]="item.for" class="form-label">{{item.name}}</label>
+          <input [type]="item.type" class="form-control" [id]="item.for" [formControlName]="item.for" [attr.aria-describedby]="item.help">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="termsCheck" formControlName="terms">
+          <label class="form-check-label" for="termsCheck">{{mainMenu.titleButton[2].name}}</label>
+        </div>
+        <button type="submit" [disabled]="!formRegister.valid" [class]="mainMenu.titleButton[1]?.style">{{ mainMenu.titleButton[1]?.name }}</button>
+        <pre>{{ formRegister.value | json }}</pre> <!-- Muestra los valores actuales del formulario -->
+        <pre>Valid: {{ formRegister.valid }}</pre> <!-- Muestra si el formulario es válido -->
+      </form>
+    </div>
+  </div>
+</div>
+
+  
+  
+  

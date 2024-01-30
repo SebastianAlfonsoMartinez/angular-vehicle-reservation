@@ -1,0 +1,99 @@
+header {
+  background-color: #007BFF; /* Un tono azul */
+  color: white;
+  padding: 10px 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo img, .session-icons img {
+  height: 40px;
+}
+
+.hamburger img {
+  height: 30px;
+  color: white;
+}
+
+.navbar ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  margin: 0;
+}
+
+.navbar ul li {
+  margin: 0 10px;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+  color: #34D399; /* Un tono verde */
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+}
+.button-container {
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.login {
+  background-color: #007BFF; /* Azul */
+  color: white;
+}
+
+.login:hover {
+  background-color: #0056b3; /* Azul más oscuro */
+}
+
+.register {
+  background-color: #34D399; /* Verde */
+  color: white;
+}
+
+.register:hover {
+  background-color: #12b886; /* Verde más oscuro */
+}
+
+@media (max-width: 768px) {
+  .navbar ul {
+      flex-direction: column;
+      display: none;
+  }
+
+  .navbar ul li {
+      text-align: center;
+      margin: 5px 0;
+  }
+
+  .hamburger {
+      display: block;
+      color: white;
+  }
+
+  .session-icons {
+      display: none; /* Opcional: ocultar iconos de sesión en móviles */
+  }
+}

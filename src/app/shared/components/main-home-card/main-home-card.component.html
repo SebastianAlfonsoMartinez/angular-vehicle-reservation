@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let vehicle of vehicles">
+        <div class="card" style="width: 18rem;">
+          <img [src]="vehicle.imageUrl" class="card-img-top" alt="Imagen del vehículo">
+          <div class="card-body">
+            <h5 class="card-title">{{ vehicle.brand }} - {{ vehicle.reference }}</h5>
+            <p class="card-text">Año: {{ vehicle.manufactureYear }} | Color: {{ vehicle.color }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Transmisión: {{ vehicle.typeTransmission }}</li>
+            <li class="list-group-item">Puertas: {{ vehicle.numberDoors }}</li>
+            <li class="list-group-item">Combustible: {{ vehicle.typeFuel }}</li>
+            <li class="list-group-item">Precio: {{ vehicle.price }}</li>
+          </ul>
+          <div class="card-body">
+            <a href="#" class="card-link">Más detalles</a>
+            <a [routerLink]="'/reservation'" class="card-link">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

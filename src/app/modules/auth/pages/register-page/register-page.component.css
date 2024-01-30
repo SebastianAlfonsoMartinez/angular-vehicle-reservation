@@ -1,0 +1,38 @@
+.container {
+    max-width: 80%;
+
+  }
+  
+  .img-fluid {
+    max-height: 100%; 
+  }
+  
+  form {
+    background-color: #f8f9fa; /* Color de fondo claro */
+    border-radius: 10px; /* Bordes redondeados */
+    width: 80%;
+    margin: auto;
+  }
+  
+  .form-label {
+    font-weight: bold; /* Etiquetas de formulario en negrita */
+  }
+  
+  .form-control {
+    border: 1px solid #ced4da; /* Bordes sutiles para los campos de entrada */
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Color de fondo para el botón */
+    border-color: #007bff; /* Color del borde para el botón */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0069d9; /* Color de fondo al pasar el ratón */
+    border-color: #0062cc; /* Color del borde al pasar el ratón */
+  }
+  
+
+  
+
+  

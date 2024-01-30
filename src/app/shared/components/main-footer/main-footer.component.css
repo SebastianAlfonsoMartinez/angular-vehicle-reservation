@@ -1,0 +1,47 @@
+footer {
+    background-color: #007BFF; /* Azul */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-nav, .social-media, .payment-methods {
+    margin-bottom: 20px;
+}
+
+.footer-nav a, .social-media a, .payment-methods img {
+    margin: 0 10px;
+}
+
+.footer-nav a, .social-media a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-nav a:hover, .social-media a:hover {
+    color: #34D399; /* Verde */
+}
+
+.social-media a img, .payment-methods img {
+    height: 30px;
+}
+
+@media (min-width: 768px) {
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .footer-nav, .social-media, .payment-methods {
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,22 @@
+<div class="form-container absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]">
+<form (ngSubmit)="sendLogin()" [formGroup]="formLogin" >
+    <img src="../../../../../assets/images/vehigo-high-resolution-logo-black-transparent.png" alt="" class="icon-primary">
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo</label>
+      <input formControlName="email" placeholder="Dirección de correo o nombre de usuario" class="form-control" id="exampleInputEmail1">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Contraseña</label>
+      <input formControlName="password" placeholder="Contraseña" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <div *ngIf="errorSession">
+        Ocurrio un error con tu email o password
+    </div>
+    <button [disabled]="!formLogin.valid"  class="btn btn-primary">Iniciar sesion</button>
+  </form>
+</div>

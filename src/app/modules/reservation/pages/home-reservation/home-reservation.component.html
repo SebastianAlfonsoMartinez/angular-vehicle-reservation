@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Reserva de Vehículo</h2>
+    <form  (ngSubmit)="sendBooking()">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="startDate">Fecha de inicio</label>
+          <input type="date" id="startDate" formControlName="startDate" class="form-control">
+        </div>
+        <div class="col">
+          <label for="endDate">Fecha de fin</label>
+          <input type="date" id="endDate" formControlName="endDate" class="form-control">
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col">
+          <label>Vehículo seleccionado</label>
+          <p class="form-control-plaintext">Vehiculo</p>
+        </div>
+        <div class="col">
+          <label>Usuario</label>
+          <p class="form-control-plaintext">Pepillo</p>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!formReservation.valid">Reservar</button>
+    </form>
+  </div>
+

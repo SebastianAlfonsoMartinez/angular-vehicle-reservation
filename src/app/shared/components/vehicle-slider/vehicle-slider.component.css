@@ -1,0 +1,30 @@
+#carouselExampleCaptions {
+    max-width: 600px; /* Ajusta según tus necesidades */
+    margin: auto; /* Centra el carrusel horizontalmente */
+    overflow: hidden; /* Oculta cualquier contenido que exceda los límites del carrusel */
+  }
+  
+  .carousel-item img {
+    width: 100%; /* Hace que las imágenes se escalen para ajustarse al ancho del contenedor */
+    height: 400px; /* Mantiene las proporciones de la imagen */
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+
+  .carousel-control-prev-icon, .carousel-control-next-icon{
+    background-color: #007BFF;
+  }
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* negro con 50% de opacidad */
+    color: white;
+  }
+  @media (max-width: 768px) {
+    #carouselExampleCaptions {
+      max-width: 80%; /* Ocupa todo el ancho disponible en pantallas pequeñas */
+    }
+    .carousel-item img{
+      height: auto;
+    }
+  }
+      
