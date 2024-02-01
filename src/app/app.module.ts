@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CookieService } from 'ngx-cookie-service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InjectSessionInterceptor } from '@core/interceptors/inject-session.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -16,7 +17,8 @@ import { InjectSessionInterceptor } from '@core/interceptors/inject-session.inte
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [CookieService,
   {

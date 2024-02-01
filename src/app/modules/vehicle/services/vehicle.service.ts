@@ -7,16 +7,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class CardServicesService {
+export class VehicleService {
 
   private readonly URL = environment.api
 
   constructor(private http: HttpClient) { }
 
-  getAllVehicles$(offset: number, limit: number): Observable<any> { 
-    return this.http.get<any>(`${this.URL}/vehicle/all/${offset}/${limit}`); 
+  getVehicleById(id: string): Observable<VehicleModel> { 
+    return this.http.get<VehicleModel>(`${this.URL}/vehicle/search/${id}`); 
   }
-  getAllVehiclesForShuffle$(): Observable<VehicleModel[]> {
-    return this.http.get<VehicleModel[]>(`${this.URL}/vehicle/all/0/40`);
-}
 }

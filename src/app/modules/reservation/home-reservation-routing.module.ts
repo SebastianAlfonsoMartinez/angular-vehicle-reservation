@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     children:[
-    {path:'main', component: HomeReservationComponent, canActivate:[SessionGuard]},
+    {path:'main/:vehicleId', component: HomeReservationComponent, canActivate:[SessionGuard]},
     {path:'list', component: ReservationListComponent, canActivate:[SessionGuard]}
     ]
   }

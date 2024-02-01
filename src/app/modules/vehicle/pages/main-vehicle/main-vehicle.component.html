@@ -1,1 +1,36 @@
-<p>main-vehicle works!</p>
+<!-- main-vehicle.component.html -->
+<div class="container">
+  <div class="row">
+    <!-- Iterar sobre displayedVehicles -->
+    <div class="col-md-4 mb-4" *ngFor="let vehicle of displayedVehicles">
+      <div class="card">
+        <img [src]="vehicle.imageUrl" class="card-img-top" alt="Imagen del vehículo">
+        <div class="card-body">
+          <h5 class="card-title">{{ vehicle.brand }} - {{ vehicle.reference }}</h5>
+          <p class="card-text">Año: {{ vehicle.manufactureYear }} | Color: {{ vehicle.color }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Transmisión: {{ vehicle.typeTransmission }}</li>
+          <li class="list-group-item">Puertas: {{ vehicle.numberDoors }}</li>
+          <li class="list-group-item">Combustible: {{ vehicle.typeFuel }}</li>
+          <li class="list-group-item">Precio: {{ vehicle.price }}</li>
+        </ul>
+        <div class="card-body">
+          <a [routerLink]="['/home/vehicle/details', vehicle.id]" class="card-link">Más detalles</a>
+          <a [routerLink]="['/home/reservation/main', vehicle.id]" class="card-link">Reservar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginator -->
+  <mat-paginator [length]="totalVehicles"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[3, 6, 9, 18]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+
+
+  
+

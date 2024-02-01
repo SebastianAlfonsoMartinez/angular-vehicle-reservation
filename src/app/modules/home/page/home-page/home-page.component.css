@@ -1,0 +1,22 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .app-container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content-wrap {
+    flex: 1;
+  }
+  
+  footer {
+    background: #007BFF; /* Color de tu elección */
+    color: white; /* Color de tu elección */
+    /* Añade cualquier otro estilo que necesites aquí */
+  }
+  
+  

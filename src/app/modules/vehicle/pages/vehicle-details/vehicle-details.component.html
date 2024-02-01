@@ -1,1 +1,20 @@
-<p>vehicle-details works!</p>
+<!-- vehicle-details.component.html -->
+<div *ngIf="vehicle" class="vehicle-details">
+    <h2>{{ vehicle.brand }} - {{ vehicle.reference }}</h2>
+    <div class="vehicle-info">
+      <p>Año: {{ vehicle.manufactureYear }}</p>
+      <p>Color: {{ vehicle.color }}</p>
+      <p>Transmisión: {{ vehicle.typeTransmission }}</p>
+      <p>Número de Puertas: {{ vehicle.numberDoors }}</p>
+      <p>Tipo de Combustible: {{ vehicle.typeFuel }}</p>
+      <p>Precio: {{ vehicle.price | currency }}</p>
+      <p>Disponibilidad: {{ vehicle.available ? 'Disponible' : 'No Disponible' }}</p>
+      <!-- Agregar más detalles según tu modelo VehicleModel -->
+    </div>
+    <!-- Incluir imagen si está disponible -->
+    <div class="vehicle-image">
+      <img [src]="vehicle.imageUrl" alt="Imagen del vehículo {{vehicle.brand}} {{vehicle.reference}}">
+    </div>
+    <a [routerLink]="['/home/reservation/main', vehicle.id]" class="btn btn-primary">Reservar</a>
+  </div>
+  
