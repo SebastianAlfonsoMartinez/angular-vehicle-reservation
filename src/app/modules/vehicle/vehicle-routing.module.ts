@@ -1,7 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MainVehicleComponent } from './pages/main-vehicle/main-vehicle.component';
+import { VehicleDetailsComponent } from './pages/vehicle-details/vehicle-details.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    children:[
+      {path: 'main', component: MainVehicleComponent},
+      {path: 'details/:id', component: VehicleDetailsComponent}
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

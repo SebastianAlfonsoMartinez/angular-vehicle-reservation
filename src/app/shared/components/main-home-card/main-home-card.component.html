@@ -14,8 +14,8 @@
             <li class="list-group-item">Precio: {{ vehicle.price }}</li>
           </ul>
           <div class="card-body">
-            <a href="#" class="card-link">Más detalles</a>
-            <a [routerLink]="'/reservation'" class="card-link">Reservar</a>
+            <a [routerLink]="['/home/vehicle/details', vehicle.id]" class="card-link">Más detalles</a>
+            <a [routerLink]="['/reservation/main', vehicle.id]" class="btn btn-primary">Reservar</a>
           </div>
         </div>
       </div>

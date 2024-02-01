@@ -14,7 +14,7 @@ export class MainHomeCardComponent {
 
   constructor(private cardService: CardServicesService){}
   ngOnInit() {
-    this.cardService.getAllVehicles$().subscribe((response: VehicleModel[]) => {
+    this.cardService.getAllVehiclesForShuffle$().subscribe((response: VehicleModel[]) => {
       this.vehicles = this.shuffleVehicles(response);
       console.log('Vehicles shuffled and loaded: ', this.vehicles);
     });

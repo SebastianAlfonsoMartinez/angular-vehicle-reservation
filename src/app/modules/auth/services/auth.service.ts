@@ -56,6 +56,19 @@ export class AuthService {
     }
     return null;
   }
+  getUserIdFromToken(): string {
+    const token = this.cookie.get('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<CustomJwtPayload>(token);
+        // Asegurarse de que id_user sea un string. Si es null, devuelve un string vacío
+        return decodedToken.id_user ? decodedToken.id_user.toString() : '';
+      } catch (Error) {
+        console.error('Error decodificando el token:', Error);
+      }
+    }
+    return ''; // Devuelve un string vacío si el token no está o no se puede decodificar
+  }
   
 
   setUserInfo(userInfo: { fullName?: string; roles?: string[]; id_user?: number }): void {
