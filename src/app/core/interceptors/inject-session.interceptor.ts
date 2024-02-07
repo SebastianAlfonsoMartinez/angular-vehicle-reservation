@@ -8,26 +8,32 @@ import {
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Injectable()
 export class InjectSessionInterceptor implements HttpInterceptor {
 
   constructor(private cookieService: CookieService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    try {
-      const token = this.cookieService.get('token')
-      let newRequest = request
-      newRequest = request.clone(
-        {
-          setHeaders:{
-            authorization: `Bearer ${token}`
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // Lista de endpoints que no requieren token
+    const noAuthRequired = [
+      '/vehicle/all/',
+      // otros endpoints si es necesario
+    ];
+  
+    const requiresAuth = !noAuthRequired.some(url => request.url.includes(url));
+  
+    if (requiresAuth) {
+      const token = this.cookieService.get('token');
+      if (token) {
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`
           }
-        }
-      )
-      return next.handle(newRequest)
-    } catch (e) {
-      console.log("error enviando el token por http", e);
-      return next.handle(request)
+        });
+      }
     }
+  
+    return next.handle(request);
   }
 }

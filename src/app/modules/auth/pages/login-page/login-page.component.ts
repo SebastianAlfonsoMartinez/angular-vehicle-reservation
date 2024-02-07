@@ -13,7 +13,6 @@ export class LoginPageComponent implements OnInit {
   formLogin: FormGroup = new FormGroup({});
   constructor(private authService: AuthService){}
   ngOnInit(): void {
-    this.authService.getTokenClaims()
     this.formLogin = new FormGroup(
       {
         email: new FormControl('',[
@@ -37,7 +36,7 @@ export class LoginPageComponent implements OnInit {
       console.log('Session iniciada con exito', response);
     }, error =>{
       this.errorSession = true;
-      console.log('Error al iniciar sesion', error);
+      console.error('Error al iniciar sesion', error);
     })
   }
 }

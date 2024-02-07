@@ -1,37 +1,29 @@
-<script src="https://kit.fontawesome.com/c15d93d674.js" crossorigin="anonymous"></script>
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <a [routerLink]="mainMenu.defaulOptions"><img src="../../../../assets/images/vehigo-high-resolution-logo-white-transparent.png" alt="Logo"></a>
-            </div>
-            <nav class="navbar">
-                <ul id="nav-list">
-                    <li *ngFor="let item of mainMenu.defaulOptions">
-                        <a [routerLink]="item.router">{{ item.name }}</a>
-                      </li>
-                </ul>
-            </nav>
-            <div class="session-icons">
-                <span>Welcome, {{ fullName }}</span>
-                <button *ngFor="let item of mainMenu.accessLink" [routerLink]="item.router" class="{{item.style}}">
-                  {{ item.name }}
-                </button>
-              </div>
-            <button class="hamburger" id="hamburger">
-              <img src="../../../../assets/icons/bars.svg" alt="">
-            </button>
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <a [routerLink]="['/home/main']"><img src="../../../../assets/images/vehigo-high-resolution-logo-white-transparent.png" alt="Logo"></a>
         </div>
-    </header>
-    <script>
-        // JavaScript para alternar la visibilidad del menú en dispositivos móviles
-        document.getElementById('hamburger').addEventListener('click', function() {
-            var navList = document.getElementById('nav-list');
-            if (navList.style.display === 'block') {
-                navList.style.display = 'none';
-            } else {
-                navList.style.display = 'block';
-            }
-        });
-    </script>
-
-
+        <nav class="navbar">
+            <ul id="nav-list">
+                <li *ngFor="let item of mainMenu.defaulOptions">
+                    <a [routerLink]="item.router">{{ item.name }}</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="session-icons">
+            <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+                <a [routerLink]="['/home/user/details']" class="user-initials-link">
+                  <div class="user-initials">{{ initials }}</div>
+                </a>
+                <button (click)="logout()" class="btn logout">Cerrar sesión</button>
+            </ng-container>
+            <ng-template #notLoggedIn>
+                <button [routerLink]="['/auth/login']" class="btn login">Iniciar Sesión</button>
+                <button [routerLink]="['/auth/register']" class="btn register">Registrarse</button>
+            </ng-template>
+        </div>
+        <button class="hamburger" id="hamburger">
+            <img src="../../../../assets/icons/bars.svg" alt="">
+        </button>
+    </div>
+</header>
