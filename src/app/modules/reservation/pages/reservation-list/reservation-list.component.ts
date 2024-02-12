@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UserService } from './services/user-service.service';
+import { UserService } from './services/user.service';
 import { UserInfoModel } from '@core/models/userInfo.model';
 import { Booking } from '@core/models/booking.model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';

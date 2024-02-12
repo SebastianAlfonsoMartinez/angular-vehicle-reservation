@@ -30,7 +30,8 @@ export class RegisterPageComponent implements OnInit{
         phone: new FormControl('',[
           Validators.required,
           Validators.minLength(9),
-          Validators.maxLength(15)
+          Validators.maxLength(15),
+          Validators.pattern('^[0-9]*$')
         ]),
         email: new FormControl('',[
           Validators.required,
@@ -104,6 +105,26 @@ export class RegisterPageComponent implements OnInit{
       console.log('Error al iniciar sesion', error);
     })
   }
+
+  getErrorMessage(formControlName: string): string {
+    const control = this.formRegister.get(formControlName);
+    
+    if (control?.errors?.['required']) {
+      return 'Este campo es obligatorio.';
+    } else if (control?.errors?.['email']) {
+      return 'Por favor, introduce una dirección de correo electrónico válida.';
+    } else if (control?.errors?.['minlength']) {
+      return `Longitud mínima esperada ${control.errors['minlength'].requiredLength}.`;
+    } else if (control?.errors?.['maxlength']) {
+      return `Longitud máxima esperada ${control.errors['maxlength'].requiredLength}.`;
+    } else if (control?.errors?.['pattern']) {
+      return `Por favor, introduce solo números.`;
+    }
+  
+    return ''; 
+  }
+  
+  
 
 
 }
