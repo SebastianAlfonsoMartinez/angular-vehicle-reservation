@@ -38,14 +38,13 @@ export class LoginPageComponent implements OnInit {
       this.authService.sendCredentials(email, password).subscribe({
         next: (response) => {
           console.log('Sesión iniciada con éxito', response);
-          // Aquí podrías redirigir al usuario a otra página
-          // Por ejemplo: this.router.navigate(['/home']);
+  
         },
         error: (error) => {
           console.log(email, password);
           
           this.errorSession = true;
-          // Suponiendo que tu API envía un estado 401 para credenciales incorrectas
+          // Suponiendo que tu API envía un estado 403 para credenciales incorrectas
           if (error.status === 403) {
             this.errorSessionMessage = 'Correo electrónico o contraseña incorrectos.';
           } else {
