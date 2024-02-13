@@ -1,9 +1,35 @@
-.responsive-image {
-    width: 80%;
-    height: auto;
-    display: block; 
-    margin: auto;
-}
+#carouselExampleCaptions {
+    max-width: 95%; /* Ajusta según tus necesidades */
+    margin: auto; /* Centra el carrusel horizontalmente */
+    overflow: hidden; /* Oculta cualquier contenido que exceda los límites del carrusel */
+    margin-bottom: 2%;
+  }
+  
+  .carousel-item img {
+    width: 100%; /* Hace que las imágenes se escalen para ajustarse al ancho del contenedor */
+    height: 600px; /* Mantiene las proporciones de la imagen */
+    max-width: 100%;
+    object-fit: cover;
+  }
+  h1 {
+    text-align: center;
+    font-weight: bold;
+  }
 
-@media (max-width: 768px) {
-}
+
+  .carousel-control-prev-icon, .carousel-control-next-icon{
+    background-color: #007BFF;
+  }
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* negro con 50% de opacidad */
+    color: white;
+  }
+  @media (max-width: 768px) {
+    #carouselExampleCaptions {
+      max-width: 80%; /* Ocupa todo el ancho disponible en pantallas pequeñas */
+    }
+    .carousel-item img{
+      height: auto;
+    }
+  }
+      

@@ -1,3 +1,24 @@
-<main>
-    <img src="../../../../assets/images/vehigo-high-resolution-logo-transparent.png" alt="VehiGo" class="responsive-image">
-</main>
+<h1>Lugares a los cuales puedes visitar en nuestro vehiculos, reserva ya! </h1>
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button *ngFor="let slide of slides; let i = index" type="button" data-bs-target="#carouselExampleCaptions" [attr.data-bs-slide-to]="i" [class.active]="i === activeSlideIndex" aria-current="true" [attr.aria-label]="'Slide ' + (i + 1)"></button>
+    </div>
+    <div class="carousel-inner">
+      <div *ngFor="let slide of slides; let i = index" class="carousel-item" [class.active]="i === activeSlideIndex">
+        <img [src]="slide.urlImagen" class="d-block w-100" [alt]="slide.ciudad">
+        <div class="carousel-caption d-none d-md-block">
+          <h1>{{ slide.ciudad }}</h1>
+          <p>{{ slide.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" (click)="moveSlide(-1)">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" (click)="moveSlide(1)">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  

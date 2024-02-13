@@ -2,6 +2,7 @@ header {
   background-color: #007BFF; /* Un tono azul */
   color: white;
   padding: 10px 0;
+  margin-bottom: 50px;
 }
 
 .header-container {

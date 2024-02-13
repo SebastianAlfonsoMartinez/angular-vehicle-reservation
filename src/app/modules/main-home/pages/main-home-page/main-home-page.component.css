@@ -1,0 +1,14 @@
+/* CSS del componente padre si usa Flexbox */
+.parent-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Esta propiedad crea un espacio entre los elementos flexibles */
+  }
+  
+  /* O si usas Grid */
+  .parent-container {
+    display: grid;
+    grid-row-gap: 100px; /* Esta propiedad crea un espacio entre las filas del grid */
+  }
+  
+  
