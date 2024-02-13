@@ -2,6 +2,7 @@ header {
   background-color: #007BFF; /* Un tono azul */
   color: white;
   padding: 10px 0;
+  margin-bottom: 50px;
 }
 
 .header-container {
@@ -76,6 +77,54 @@ header {
 .register:hover {
   background-color: #12b886; /* Verde más oscuro */
 }
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Estilos para las iniciales y el botón de cerrar sesión */
+.session-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-initials-link {
+  text-decoration: none;
+}
+
+.user-initials {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #495057; /* Un color de fondo más neutro */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.logout {
+  background-color: #dc3545; /* Color rojo para indicar acción de cerrar sesión */
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.logout:hover {
+  background-color: #c82333; /* Un rojo más oscuro al pasar el ratón */
+}
+
+/* Ajustes para la bienvenida y la sesión icons */
+.session-icons span {
+  color: white; /* Asegura que el texto sea blanco y visible */
+  margin-right: 10px; /* Añade un margen a la derecha del texto */
+}
+
+
+
 
 @media (max-width: 768px) {
   .navbar ul {
@@ -89,11 +138,23 @@ header {
   }
 
   .hamburger {
-      display: block;
-      color: white;
+    display: block; /* Asegura que el botón sea visible en todas las resoluciones */
+    background: none;
+    border: none;
+    color: white;
   }
 
   .session-icons {
-      display: none; /* Opcional: ocultar iconos de sesión en móviles */
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .session-icons span,
+  .session-icons .btn {
+    display: block; /* Asegura que los elementos se muestren correctamente en líneas separadas */
+  }
+  .logo a img {
+    max-height: 50px; /* Ajusta según el tamaño deseado */
+    width: auto;
   }
 }

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserModel } from '@core/models/user.model';
-import { VehicleModel } from '@core/models/vehicle.model';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -11,21 +10,25 @@ import { environment } from 'src/environments/environment';
 export class ReservationService {
   private readonly URL = environment.api;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+    ) { }
 
-  sendeReservation(startDate: Date, endDate: Date, vehicle: VehicleModel, user: UserModel): Observable<any>{
+  sendReservation(startDate: string, endDate: string, vehicleId: number): Observable<any>{
     const body = {
       startDate,
       endDate,
-      vehicle,
-      user
-    }
+      vehicle: { id: vehicleId }
+    };
+    
     return this.http.post(`${this.URL}/booking/create`, body)
     .pipe(
-      tap((response: any) =>{
-        console.log('reserva exitosa')
-        
+      tap((response: any) => {
+        console.log('Reserva exitosa', response);
+        this.router.navigate(["/home/reservation/list"])
       })
-    )
-  }
+    );
+}
+
 }

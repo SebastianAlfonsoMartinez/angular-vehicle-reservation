@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-md-4" *ngFor="let vehicle of vehicles">
         <div class="card" style="width: 18rem;">
-          <img [src]="vehicle.imageUrl" class="card-img-top" alt="Imagen del vehículo">
+          <img appImgBroken [src]="vehicle.imageUrl" class="card-img-top" alt="Imagen del vehículo">
           <div class="card-body">
             <h5 class="card-title">{{ vehicle.brand }} - {{ vehicle.reference }}</h5>
             <p class="card-text">Año: {{ vehicle.manufactureYear }} | Color: {{ vehicle.color }}</p>

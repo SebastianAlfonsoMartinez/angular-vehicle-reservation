@@ -9,11 +9,11 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+  errorSessionMessage: string = '';
   errorSession: boolean = false;
   formLogin: FormGroup = new FormGroup({});
   constructor(private authService: AuthService){}
   ngOnInit(): void {
-    this.authService.getTokenClaims()
     this.formLogin = new FormGroup(
       {
         email: new FormControl('',[
@@ -24,20 +24,39 @@ export class LoginPageComponent implements OnInit {
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(12)
-        ])
+        ]),
+        terms: new FormControl(false, [ 
+        Validators.requiredTrue 
+      ])
       }
     )
   }
 
-  sendLogin(): void{
-    const {email, password} = this.formLogin.value;
-
-    this.authService.sendCredentials(email, password)
-    .subscribe(response =>{
-      console.log('Session iniciada con exito', response);
-    }, error =>{
-      this.errorSession = true;
-      console.log('Error al iniciar sesion', error);
-    })
+  sendLogin(): void {
+    if (this.formLogin.valid) {
+      const { email, password } = this.formLogin.value;
+      this.authService.sendCredentials(email, password).subscribe({
+        next: (response) => {
+          console.log('Sesión iniciada con éxito', response);
+  
+        },
+        error: (error) => {
+          console.log(email, password);
+          
+          this.errorSession = true;
+          // Suponiendo que tu API envía un estado 403 para credenciales incorrectas
+          if (error.status === 403) {
+            this.errorSessionMessage = 'Correo electrónico o contraseña incorrectos.';
+          } else {
+            // Otros errores de servidor
+            this.errorSessionMessage = 'Ocurrió un error al intentar iniciar sesión. Por favor, inténtelo de nuevo.';
+          }
+          console.error('Error al iniciar sesión', error);
+        }
+      });
+    } else {
+      console.error('El formulario no es válido');
+    }
   }
+
 }

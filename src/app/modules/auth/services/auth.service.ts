@@ -1,12 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { environment } from 'src/environments/environment.prod';
-import { JwtPayload, jwtDecode } from "jwt-decode";
-import { CustomJwtPayload } from '@core/models/CustomJwtPayload.model';
-
+import { Router } from '@angular/router';
+import { UserInfoModel } from '@core/models/userInfo.model';
 
 
 @Injectable({
@@ -14,65 +12,48 @@ import { CustomJwtPayload } from '@core/models/CustomJwtPayload.model';
 })
 export class AuthService {
   private readonly URL = environment.api;
-  private userInfoSource = new BehaviorSubject<{ fullName?: string; roles?: string[]; id_user?: number }>({});
+  private userInfoSource = new BehaviorSubject<UserInfoModel | null>(null);
   userInfo$ = this.userInfoSource.asObservable();
 
-  constructor(private http: HttpClient, private cookie: CookieService,
-    private router: Router) { };
+  constructor(private http: HttpClient, private cookie: CookieService, private router: Router) {}
 
-  sendCredentials(email: string, password: string): Observable<any>{
-    
-    const body = {
-      email,
-      password
-    }
-    return this.http.post(`${this.URL}/auth/authenticate`, body, {responseType: 'text'})
-    .pipe(
-      tap((response: any)=>{
-        this.cookie.set('token', response, 1, '/');
-        this.router.navigate(['/home/main'])
-      })
-    )
+  sendCredentials(email: string, password: string): Observable<any> {
+    const body = { email, password };
+    return this.http.post(`${this.URL}/auth/authenticate`, body, { responseType: 'text' })
+      .pipe(
+        tap((token: string) => {
+          this.cookie.set('token', token, 1, '/');
+          this.getUserInfo();
+          this.router.navigate(['/home/main']);
+        })
+      );
   }
 
-  getTokenClaims(): any {
-    const token = this.cookie.get('token');
-    if (token) {
-      try {
-        const decodedToken = jwtDecode<CustomJwtPayload>(token);
-        console.log(decodedToken);
-  
-        // Actualiza la información del usuario a través del BehaviorSubject
-        this.setUserInfo({
-          fullName: decodedToken.fullName,
-          roles: decodedToken.roles,
-          id_user: decodedToken.id_user
-        });
-  
-      } catch (Error) {
-        console.error('Error decodificando el token:', Error);
-        return null;
+  getUserInfo(): void {
+    this.http.get<UserInfoModel>(`${this.URL}/user/info`).subscribe({
+      next: (userInfo) => {
+        this.userInfoSource.next(userInfo);
+      },
+      error: (error) => {
+        console.error('Error obteniendo la información del usuario:', error);
+        this.logout(); // Considera llamar a logout si hay un error para limpiar el estado
       }
-    }
-    return null;
+    });
   }
-  getUserIdFromToken(): string {
-    const token = this.cookie.get('token');
-    if (token) {
-      try {
-        const decodedToken = jwtDecode<CustomJwtPayload>(token);
-        // Asegurarse de que id_user sea un string. Si es null, devuelve un string vacío
-        return decodedToken.id_user ? decodedToken.id_user.toString() : '';
-      } catch (Error) {
-        console.error('Error decodificando el token:', Error);
-      }
-    }
-    return ''; // Devuelve un string vacío si el token no está o no se puede decodificar
-  }
-  
 
-  setUserInfo(userInfo: { fullName?: string; roles?: string[]; id_user?: number }): void {
+  logout(): void {
+    this.cookie.delete('token', '/');
+    this.userInfoSource.next(null); // Reset userInfo
+    this.router.navigate(['/auth/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.cookie.check('token');
+  }
+
+  setUserInfo(userInfo: UserInfoModel): void {
     this.userInfoSource.next(userInfo);
   }
-  
+
+
 }

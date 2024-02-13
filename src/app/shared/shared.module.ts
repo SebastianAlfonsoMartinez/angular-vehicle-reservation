@@ -6,6 +6,8 @@ import { MainHomeImageComponent } from './components/main-home-image/main-home-i
 import { VehicleSliderComponent } from './components/vehicle-slider/vehicle-slider.component';
 import { MainHomeCardComponent } from './components/main-home-card/main-home-card.component';
 import { RouterModule } from '@angular/router';
+import { ImgBrokenDirective } from './directives/img-broken.directive';
+import { OrderListPipe } from './pipes/order-list.pipe';
 
 
 
@@ -15,7 +17,9 @@ import { RouterModule } from '@angular/router';
     MainFooterComponent,
     MainHomeImageComponent,
     VehicleSliderComponent,
-    MainHomeCardComponent
+    MainHomeCardComponent,
+    ImgBrokenDirective,
+    OrderListPipe
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,9 @@ import { RouterModule } from '@angular/router';
     MainFooterComponent,
     MainHomeImageComponent,
     VehicleSliderComponent,
-    MainHomeCardComponent
+    MainHomeCardComponent,
+    ImgBrokenDirective,
+    OrderListPipe
   ]
 })
 export class SharedModule { }

@@ -31,6 +31,28 @@
     background-color: #0069d9; /* Color de fondo al pasar el ratón */
     border-color: #0062cc; /* Color del borde al pasar el ratón */
   }
+
+  /* Estilos para campos de formulario válidos */
+.form-control.ng-valid.ng-touched {
+  border: 1px solid #ced4da; /* Un borde normal */
+}
+
+/* Estilos para campos de formulario inválidos */
+.form-control.ng-invalid.ng-touched {
+  border: 1px solid #dc3545; /* Un borde rojo discreto para indicar un error */
+}
+
+/* Estilos adicionales para mejorar la visualización del error */
+.form-control.ng-invalid.ng-touched:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Un ligero resplandor al enfocar */
+}
+
+/* Estilo para el mensaje de error que podrías querer mostrar */
+.error-message {
+  color: #dc3545; /* Texto en rojo para mensajes de error */
+  font-size: 0.875em; /* Un tamaño de fuente más pequeño */
+  margin-top: 0.25rem; /* Un poco de margen arriba del mensaje de error */
+}
   
 
   

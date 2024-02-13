@@ -12,7 +12,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUserById(userId: number): Observable<UserInfoModel> {
-    return this.http.get<UserInfoModel>(`${this.URL}/user/search/${userId}`);
+  
+  getUserInfo(): Observable<UserInfoModel> {
+    return this.http.get<UserInfoModel>(`${this.URL}/user/info`);
   }
 }

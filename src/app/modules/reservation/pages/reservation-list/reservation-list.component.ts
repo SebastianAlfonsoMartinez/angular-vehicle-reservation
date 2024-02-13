@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from './services/user-service.service';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { UserService } from './services/user.service';
 import { UserInfoModel } from '@core/models/userInfo.model';
-import { AuthService } from '@modules/auth/services/auth.service';
 import { Booking } from '@core/models/booking.model';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -13,42 +13,91 @@ import { Router } from '@angular/router';
   templateUrl: './reservation-list.component.html',
   styleUrls: ['./reservation-list.component.css']
 })
-export class ReservationListComponent implements OnInit {
+export class ReservationListComponent implements OnInit, OnDestroy {
   user: UserInfoModel | null = null;
   hasReservations: boolean = false;
-  displayedColumns: string[] = ['startDate', 'endDate', 'state', 'vehicle','image'];
+  displayedColumns: string[] = ['startDate', 'endDate', 'state', 'vehicle', 'image'];
   dataSource: Booking[] = [];
   pageData: Booking[] = [];
+  orderDirection: 'asc' | 'desc' = 'asc';
+  optionSort:{property: string | null, order:string} = {property: null, order: 'asc'}
 
-  constructor(private userService: UserService, private authService: AuthService,  private datePipe: DatePipe, private router: Router) { }
+  private unsubscribe$ = new Subject<void>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(
+    private userService: UserService,
+    private datePipe: DatePipe,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    const userId = this.authService.getUserIdFromToken();
-    if (userId) {
-      this.userService.getUserById(+userId).subscribe(user => {
+    this.loadReservations();
+  }
+
+  loadReservations(): void {
+    this.userService.getUserInfo()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(user => {
         this.user = user;
         this.hasReservations = user.bookings && user.bookings.length > 0;
-        if (user.bookings && user.bookings.length > 0) {
-          this.dataSource = user.bookings;
-          this.pageData = this.dataSource.slice(0, 10);
-        } else {
-          // Manejar el caso de que no haya reservas
-          console.log('No hay reservas para mostrar');
-        }
+        this.dataSource = user.bookings || [];
+        this.sortBookings('asc'); // Ordena inicialmente en orden ascendente
+        this.initializePageData();
       }, error => {
         console.error('Error al obtener reservas del usuario:', error);
       });
+  }
+
+  sortBookings(direction: 'asc' | 'desc'): void {
+    this.dataSource.sort((a, b) => {
+      const dateA = new Date(a.startDate).getTime();
+      const dateB = new Date(b.startDate).getTime();
+      return direction === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+    this.updatePageData();
+  }
+
+  initializePageData(): void {
+    // Establece los datos de la primera página después de ordenar
+    this.pageData = this.dataSource.slice(0, 10);
+    if (this.paginator) {
+      this.paginator.pageIndex = 0; // Resetea al primer página
+      this.paginator.length = this.dataSource.length;
     }
   }
-  onPageChange(event: PageEvent) {
-    const startIndex = event.pageIndex * event.pageSize;
-    const endIndex = startIndex + event.pageSize;
+
+  updatePageData(): void {
+    if (!this.paginator) return;
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + this.paginator.pageSize;
     this.pageData = this.dataSource.slice(startIndex, endIndex);
   }
-  transformDate(date: string): string {
-    return this.datePipe.transform(date, 'dd/MM/yyyy, HH:mm', 'es') || '';
+
+  onPageChange(event: PageEvent): void {
+    this.updatePageData();
   }
+
   redirectToVehicles(): void {
-    this.router.navigate(['/ruta-a-vehiculos']); // Reemplaza con la ruta correcta
+    this.router.navigate(['/home/vehicle/main']);
+  }
+  toggleOrderDirection(): void {
+    this.orderDirection = this.orderDirection === 'asc' ? 'desc' : 'asc'; // Cambia la dirección
+    this.sortBookings(this.orderDirection); // Reordena las reservas
+  }
+  changeSort(property: string): void{
+    const {order} = this.optionSort
+    this.optionSort = {
+      property,
+      order: order == 'asc' ? 'desc': 'asc'
+    }
+    
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
+

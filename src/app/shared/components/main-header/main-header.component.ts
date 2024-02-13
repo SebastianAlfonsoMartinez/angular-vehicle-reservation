@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -9,7 +8,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./main-header.component.css']
 })
 export class MainHeaderComponent implements OnInit {
+  isLoggedIn: boolean = false;
   fullName?: string;
+  initials?: string;
   private userInfoSubscription?: Subscription;
   
   mainMenu: {
@@ -18,50 +19,40 @@ export class MainHeaderComponent implements OnInit {
   };
   customOptions: Array<any> = [];
 
-  constructor(private router: Router, private authService: AuthService){}
+  constructor(private authService: AuthService){}
   
   
   
   ngOnInit(): void {
-    this.userInfoSubscription = this.authService.userInfo$.subscribe(userInfo => {
-      this.fullName = userInfo.fullName;
+
+    this.authService.userInfo$.subscribe(userInfo => {
+      this.isLoggedIn = !!userInfo;
+      if (userInfo) {
+        this.fullName = `${userInfo.firstName} ${userInfo.lastName}`;
+        // Extrae las iniciales del nombre completo
+        this.initials = `${userInfo.firstName[0]}${userInfo.lastName[0]}`;
+      } else {
+        this.fullName = undefined;
+        this.initials = undefined;
+      }
     });
     
-    this.authService.getTokenClaims();
     
     this.mainMenu.defaulOptions = [
-      {
-        name: 'Reservas',
-        router: ['/home/reservation']
-      },
-      {
-        name: 'Vehiculos',
-        router: ['/home/vehicle/main']
-      },
-      {
-        name: 'Lugares',
-        router: ['/', 'sites']
-      },
-      {
-        name: 'Home',
-        router: ['/home/main']
+      {name: 'Reservas', router: ['/home/reservation/list']},
+      {name: 'Vehiculos', router: ['/home/vehicle/main']},
+      {name: 'Lugares', router: ['/', 'sites']},
+      {name: 'Home', router: ['/home/main']
       }
     ]
     this.mainMenu.accessLink = [
-      {
-        name: 'Iniciar Sesión',
-        router: ['/', 'auth', '/', 'login'],
-        style: 'btn login'
-
-      },
-      {
-        name: 'Registrarse',
-        router: ['/auth/register'],
-        style: 'btn register'
-      },
+      {name: 'Iniciar Sesión', router: ['/', 'auth', '/', 'login'], style: 'btn login'},
+      {name: 'Registrarse', router: ['/auth/register'], style: 'btn register'},
     ]
   }
-
+  logout(): void {
+    this.authService.logout();
+  }
   ngOnDestroy(): void {
     this.userInfoSubscription?.unsubscribe();
   }

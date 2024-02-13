@@ -9,14 +9,18 @@
         <div *ngFor="let item of mainMenu.defaultOptions" class="mb-3">
           <label [for]="item.for" class="form-label">{{item.name}}</label>
           <input [type]="item.type" class="form-control" [id]="item.for" [formControlName]="item.for" [attr.aria-describedby]="item.help">
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="termsCheck" formControlName="terms">
-          <label class="form-check-label" for="termsCheck">{{mainMenu.titleButton[2].name}}</label>
+          <!-- Mensaje de error dinámico -->
+          <div *ngIf="formRegister.controls[item.for].invalid && formRegister.controls[item.for].touched" class="error-message">
+            {{ getErrorMessage(item.for) }}
+          </div>
         </div>
         <button type="submit" [disabled]="!formRegister.valid" [class]="mainMenu.titleButton[1]?.style">{{ mainMenu.titleButton[1]?.name }}</button>
-        <pre>{{ formRegister.value | json }}</pre> <!-- Muestra los valores actuales del formulario -->
-        <pre>Valid: {{ formRegister.valid }}</pre> <!-- Muestra si el formulario es válido -->
+        <div class="mb-3">
+          ¿Deseas iniciar sesion? <a routerLink="/auth/login">Inicia sesion aquí</a>
+        </div>
+        <div class="mb-3">
+          <a routerLink="/home/main">Regresar a la página principal</a>
+        </div>
       </form>
     </div>
   </div>

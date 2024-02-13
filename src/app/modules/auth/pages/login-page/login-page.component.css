@@ -1,11 +1,45 @@
+.container {
+  display: flex;
+  height: 100vh; /* Ajuste para que ocupe toda la altura de la ventana */
+  width: 100vw; /* Ajuste para que ocupe toda la anchura de la ventana */
+}
+
+.image-container {
+  flex: 0 0 60%; /* Ajuste para que la imagen ocupe un 40% fijo del espacio sin reducirse ni crecer */
+  background: url('../../../../../assets/images/vehigo-high-resolution-logo.png') no-repeat center center;
+  background-size: contain; /* Ajuste para que la imagen se muestre completa */
+}
+
+.form-wrapper {
+  flex: 1; /* Ajuste para que el formulario ocupe el espacio restante */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+}
+
 .form-container {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Asegura que el contenedor tenga la altura completa de la ventana */
-    background-image: url(../../../../../assets/images/City-night.png);
-    background-size: cover;
-  }
+  width: 100%; /* Ajuste para que el formulario ocupe el 90% del .form-wrapper */
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+
+
+.form-content {
+  width: 40%; /* Ancho para el formulario */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 .icon-primary{
     width: 30%;
@@ -17,7 +51,7 @@ form {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
+    width: 100%;
   }
   
   /* Estilo para las etiquetas de los campos de formulario */
@@ -49,7 +83,7 @@ form {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: auto;
+    
   }
   
   /* Cambio de estilo al pasar el ratón sobre el botón */
@@ -76,4 +110,21 @@ form {
   input.ng-invalid.ng-touched {
     border: solid 2px rgba(239, 48, 48, 0.335) !important
 }
+
+.container-title{
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.container-title img{
+  width: 40%;
+}
+
+.error-message {
+  color: #dc3545; /* Color rojo para el mensaje */
+  font-size: 0.875rem; /* Tamaño de fuente */
+  margin-top: 0.5rem; /* Margen superior */
+}
+
   
