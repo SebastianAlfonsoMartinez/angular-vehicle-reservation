@@ -19,6 +19,8 @@ export class AuthService {
 
   sendCredentials(email: string, password: string): Observable<any> {
     const body = { email, password };
+    console.log("credenciales: ", body);
+    
     return this.http.post(`${this.URL}/auth/authenticate`, body, { responseType: 'text' })
       .pipe(
         tap((token: string) => {
