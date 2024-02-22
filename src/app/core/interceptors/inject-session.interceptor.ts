@@ -33,7 +33,8 @@ export class InjectSessionInterceptor implements HttpInterceptor {
         });
       }
     }
-  
+    console.log('prueba wilian: ', request);
+    
     return next.handle(request);
   }
 }

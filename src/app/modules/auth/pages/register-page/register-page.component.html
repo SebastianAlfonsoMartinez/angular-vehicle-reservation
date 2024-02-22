@@ -14,6 +14,13 @@
             {{ getErrorMessage(item.for) }}
           </div>
         </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="terms" formControlName="terms">
+          <label class="form-check-label" for="terms">{{ mainMenu.titleButton[2]?.name }}</label>
+          <div *ngIf="formRegister.controls['terms'].invalid && formRegister.controls['terms'].touched" class="error-message">
+            Debes aceptar los términos y condiciones para continuar.
+          </div>
+        </div>
         <button type="submit" [disabled]="!formRegister.valid" [class]="mainMenu.titleButton[1]?.style">{{ mainMenu.titleButton[1]?.name }}</button>
         <div class="mb-3">
           ¿Deseas iniciar sesion? <a routerLink="/auth/login">Inicia sesion aquí</a>

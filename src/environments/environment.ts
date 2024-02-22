@@ -1,5 +1,5 @@
 
 export const environment = {
     production: true,
-    api: 'http://localhost:8181/api/v1'
+    api: 'https://reservasvehiculos-railway-production.up.railway.app'
 };
