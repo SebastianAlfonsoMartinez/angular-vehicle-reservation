@@ -183,30 +183,38 @@ describe('RegisterPageComponent', () => {
   }));
   
   
-  // it('should update form validity on user input', fakeAsync(() => {
-  //   fixture.detectChanges(); // Asegura que los cambios se han aplicado
+  it('should update form validity on user input', fakeAsync(() => {
+    fixture.detectChanges(); // Asegura que los cambios se han aplicado
   
-  //   // Busca el campo de entrada para email y simula la entrada del usuario
-  //   const emailInput = fixture.debugElement.query(By.css('input[formControlName="email"]')).nativeElement;
-  //   emailInput.value = 'test@test.com';
-  //   emailInput.dispatchEvent(new Event('input'));
+    // Busca el campo de entrada para email y simula la entrada del usuario
+    const emailInput = fixture.debugElement.query(By.css('input#email + .error-message')).nativeElement;
+    emailInput.value = 'test@test.com';
+    emailInput.dispatchEvent(new Event('input'));
     
-  //   // Busca el campo de entrada para password y simula la entrada del usuario
-  //   const passwordInput = fixture.debugElement.query(By.css('input[formControlName="password"]')).nativeElement;
-  //   passwordInput.value = '123456';
-  //   passwordInput.dispatchEvent(new Event('input'));
+    // Busca el campo de entrada para password y simula la entrada del usuario
+    const passwordInput = fixture.debugElement.query(By.css('input#password')).nativeElement;
+    passwordInput.value = '123456';
+    passwordInput.dispatchEvent(new Event('input'));
   
-  //   // No olvides incluir otros campos requeridos para que el formulario sea válido
-  //   // Por ejemplo, si hay una casilla de términos que debe ser marcada:
-  //   const termsCheckbox = fixture.debugElement.query(By.css('input[formControlName="terms"]')).nativeElement;
-  //   termsCheckbox.click(); // Simula la marcación de la casilla
+    const fisrtNameInput = fixture.debugElement.query(By.css('input#fisrtName')).nativeElement;
+    fisrtNameInput.value = 'Pepillo';
+    fisrtNameInput.dispatchEvent(new Event('input'));
+
+    const lastNameInput = fixture.debugElement.query(By.css('input#LastName')).nativeElement;
+    lastNameInput.value = 'Perez';
+    lastNameInput.dispatchEvent(new Event('input'));
+    
+    const phoneInput = fixture.debugElement.query(By.css('input#phone')).nativeElement;
+    phoneInput.value = 'Pepillo';
+    phoneInput.dispatchEvent(new Event('input'));
   
-  //   fixture.detectChanges(); // Aplica los cambios en el DOM
-  //   tick(); // Espera a que se completen las operaciones asíncronas
   
-  //   expect(component.formRegister.valid).toBeTruthy(); // Verifica que el formulario sea válido
-  // }));
+    fixture.detectChanges(); // Aplica los cambios en el DOM
+    tick(); // Espera a que se completen las operaciones asíncronas
   
+    expect(component.formRegister.valid).toBeTruthy(); // Verifica que el formulario sea válido
+  }));
+  //input#phone + .error-message
   
 
   // it('should display validation message when email is invalid', () => {
